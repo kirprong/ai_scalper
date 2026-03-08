@@ -1,0 +1,26 @@
+{
+    "chat_id": 1,
+    "topic": "",
+    "focus_section_id": "r4.files",
+    "last_agent_name": "Many",
+    "last_modified_datetime": "2026-03-07T23:08:48.524134",
+    "messages": [
+        {
+            "name": "PO",
+            "message": "Продолжаем дальше c шестой задачи. Я в тебя верю, мы выиграем этот бой. tasks.json",
+            "message_raw": "Продолжаем дальше c шестой задачи. Я в тебя верю, мы выиграем этот бой. tasks.json",
+            "method": "USER",
+            "tasks": "",
+            "is_status_message": false,
+            "message_id": "d0df7184-ce46-4228-94c1-046366a6417b",
+            "timestamp": "2026-03-07T23:08:47.813039",
+            "variation_index": 0,
+            "variations": [],
+            "images_data": {},
+            "documents_data": {},
+            "hidden_from_agent": false
+        }
+    ],
+    "mentioned_files": [],
+    "additional_context": ""
+}
