@@ -1,0 +1,16 @@
+{
+  "file_name": "backend/signing/__init__.py",
+  "revision_id": "4589c30c-0364-4119-9cea-f5ede3218cd3",
+  "metadata": {
+    "timestamp": "2026-03-08T15:20:28.591992",
+    "type": "cache_version",
+    "source": "ToolTextFileEdit",
+    "size": 703,
+    "is_reverted": false,
+    "git_branch_name": "main",
+    "agent_name": "Cody",
+    "description": ""
+  },
+  "content": "\"\"\"\nEIP-712 Signing Module for Polymarket CLOB API\n\nThis module provides local EIP-712 signing functionality for Polymarket orders\nwithout transmitting private keys over the network.\n\"\"\"\n\nfrom .eip712 import (\n    EIP712Domain,\n    Order,\n    build_domain,\n    sign_typed_data,\n    verify_signature,\n    build_order_message,\n    get_order_types,\n)\n\nfrom .polymarket_signer import (\n    PolymarketSigner,\n    SignedOrder,\n    SignatureType,\n    OrderSide,\n)\n\n__all__ = [\n    \"EIP712Domain\",\n    \"Order\",\n    \"build_domain\",\n    \"sign_typed_data\",\n    \"verify_signature\",\n    \"build_order_message\",\n    \"get_order_types\",\n    \"PolymarketSigner\",\n    \"SignedOrder\",\n    \"SignatureType\",\n    \"OrderSide\",\n]\n",
+  "saved_at": "2026-03-08T15:20:28.594990"
+}

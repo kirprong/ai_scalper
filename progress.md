@@ -820,6 +820,77 @@ vault.set_env()  # Set to os.environ
 **Priority:** high
 
 ### Completed Work:
+1. Created `backend/signing/` module with:
+   - `__init__.py` - Module initialization
+   - `eip712.py` - EIP-712 typed data signing implementation
+   - `polymarket_signer.py` - Polymarket-specific order signing
+
+2. EIP-712 Implementation:
+   - **Domain Separator**: Polymarket CTF Exchange on Polygon Mainnet (chainId: 137)
+   - **Order Struct**: Full Polymarket CLOB order structure (salt, maker, signer, taker, tokenId, amounts, etc.)
+   - **Signature Types**: EOA (0), POLY_PROXY (1), POLY_GNOSIS_SAFE (2)
+   - **Order Sides**: BUY (0), SELL (1)
+
+3. Security Features:
+   - Private keys loaded from Vault (memory-only)
+   - Keys never transmitted over network
+   - No key leakage to logs/stdout
+   - Support for both Polygon Mainnet and Amoy Testnet
+
+4. Created comprehensive tests:
+   - `tests/test_eip712_signing.py` - 19 unit tests
+   - All tests passing ✅
+
+### Test Results:
+- ✅ EIP-712 signing implemented correctly
+- ✅ Private keys loaded from vault, never transmitted
+- ✅ Signatures match Polymarket CLOB API format
+- ✅ All 19 tests pass
+- ✅ No private key leakage to logs/stdout
+
+### Dependencies Added:
+- `eth-account>=0.10.0` - For EIP-712 signing
+- `web3>=6.0.0` - For Ethereum utilities
+
+### Files Created:
+- `backend/signing/__init__.py`
+- `backend/signing/eip712.py`
+- `backend/signing/polymarket_signer.py`
+- `tests/test_eip712_signing.py`
+
+### Usage Example:
+```python
+from backend.signing import PolymarketSigner, OrderSide
+
+# Initialize signer with private key from vault
+signer = PolymarketSigner(private_key="0x...")
+
+# Create and sign order
+order = signer.create_order(
+    token_id="12345",
+    side=OrderSide.BUY,
+    maker_amount="1000000",
+    taker_amount="500000"
+)
+signed_order = signer.sign_order(order)
+
+# Submit to Polymarket CLOB API
+# POST https://clob.polymarket.com/orders
+```
+
+### Commit:
+- Commit: `7826e6c`
+- Message: "feat: implement TASK-015 Polymarket EIP-712 signing"
+
+---
+
+## 2026-03-08 - TASK-015 ✅ COMPLETED
+
+### Task: Polymarket Local EIP-712 Signing
+**Category:** integration
+**Priority:** high
+
+### Completed Work:
 1. Created `backend/signing/__init__.py` - Module initialization
 2. Created `backend/signing/eip712.py` - EIP-712 typed data signing:
    - `build_domain()` - Domain separator for Polymarket
@@ -889,9 +960,80 @@ order_dict = signer.to_dict(signed_order)
 
 ---
 
+## 2026-03-08 - TASK-016 ✅ COMPLETED
+
+### Task: Polymarket AIOHTTP API Client
+**Category:** integration
+**Priority:** high
+
+### Completed Work:
+1. Created `backend/api/` module with:
+   - `__init__.py` - Module initialization
+   - `polymarket_client.py` - Async HTTP client for Polymarket CLOB API
+
+2. Client Features:
+   - **Async HTTP requests** with Keep-Alive connections (aiohttp)
+   - **Rate limiting** with configurable delay
+   - **Retry logic** with exponential backoff
+   - **Auto-reconnect** on connection errors
+   - **Context manager** support for proper resource cleanup
+
+3. API Endpoints Implemented:
+   - `get_markets()` - GET /markets (list all markets)
+   - `get_market(condition_id)` - GET /markets/{id}
+   - `post_order(signed_order)` - POST /orders
+   - `get_orders()` - GET /orders
+   - `get_order(order_id)` - GET /orders/{id}
+   - `delete_order(order_id)` - DELETE /orders/{id}
+   - `cancel_all_orders()` - DELETE /orders
+   - `get_order_book(token_id)` - GET /book
+   - `create_and_submit_order()` - Helper for order creation
+
+4. Created comprehensive tests:
+   - `tests/test_polymarket_client.py` - 18 unit tests
+   - All tests passing ✅
+
+### Test Results:
+- ✅ 18 tests pass
+- ✅ Async HTTP requests working
+- ✅ Keep-Alive connections verified
+- ✅ Rate limiting tested
+- ✅ Error handling verified
+
+### Files Created:
+- `backend/api/__init__.py`
+- `backend/api/polymarket_client.py`
+- `tests/test_polymarket_client.py`
+
+### Files Modified:
+- `backend/signing/__init__.py` - Added SignedOrder export
+
+### Usage Example:
+```python
+from backend.api import PolymarketClient
+from backend.signing import PolymarketSigner, OrderSide
+
+# Initialize client with signer
+signer = PolymarketSigner(private_key="0x...")
+async with PolymarketClient(signer=signer) as client:
+    # Get active markets
+    markets = await client.get_markets(active_only=True)
+    
+    # Create and submit order
+    result = await client.create_and_submit_order(
+        token_id="12345",
+        side=OrderSide.BUY,
+        maker_amount="1000000",
+        taker_amount="500000",
+        nonce=1
+    )
+```
+
+---
+
 ## PROJECT SUMMARY
 
-### Total Tasks Completed: 15
+### Total Tasks Completed: 16
 
 | Task | Module | Description |
 |------|--------|-------------|
@@ -910,5 +1052,6 @@ order_dict = signer.to_dict(signed_order)
 | TASK-013 | ml | Training pipeline |
 | TASK-014 | streaming | WebSocket client |
 | TASK-015 | integration | EIP-712 signing |
+| TASK-016 | integration | Polymarket API client |
 
 ---

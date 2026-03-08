@@ -1,0 +1,33 @@
+{
+  "file_name": "backend/api/polymarket_client.py",
+  "revisions": [
+    {
+      "revision_id": "f3687680-f16e-4786-90f2-3d0a68bc59c9",
+      "metadata": {
+        "timestamp": "2026-03-08T15:18:27.107447",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 11679,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Cody",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T15:18:27.111445"
+    },
+    {
+      "revision_id": "55b60c00-bb7f-401b-8d1e-254c3e3b9283",
+      "metadata": {
+        "timestamp": "2026-03-08T15:18:27.100932",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 0,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Cody",
+        "description": null
+      },
+      "saved_at": "2026-03-08T15:18:27.103918"
+    }
+  ]
+}

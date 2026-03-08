@@ -2,6 +2,20 @@
   "file_name": "backend/signing/__init__.py",
   "revisions": [
     {
+      "revision_id": "4589c30c-0364-4119-9cea-f5ede3218cd3",
+      "metadata": {
+        "timestamp": "2026-03-08T15:20:28.591992",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 703,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Cody",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T15:20:28.617326"
+    },
+    {
       "revision_id": "d86d4ad3-c634-4215-ab51-1cb68c60b55d",
       "metadata": {
         "timestamp": "2026-03-08T15:00:20.687292",

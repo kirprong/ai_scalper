@@ -17,6 +17,7 @@ from .eip712 import (
 
 from .polymarket_signer import (
     PolymarketSigner,
+    SignedOrder,
     SignatureType,
     OrderSide,
 )
@@ -30,6 +31,7 @@ __all__ = [
     "build_order_message",
     "get_order_types",
     "PolymarketSigner",
+    "SignedOrder",
     "SignatureType",
     "OrderSide",
 ]
