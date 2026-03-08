@@ -41,3 +41,42 @@
 - `db/.gitkeep`
 
 ---
+
+## 2026-03-08 - TASK-002 ✅ COMPLETED
+
+### Task: ClickHouse Docker-Compose
+**Category:** infrastructure
+**Priority:** critical
+
+### Completed Work:
+1. Created `docker-compose.yml` with ClickHouse service:
+   - ClickHouse server image (latest)
+   - Ports: 8123 (HTTP), 9000 (Native)
+   - Persistent volumes for data and logs
+   - Health check configuration
+   - Environment variables for database initialization
+
+2. Created ZSTD compression configuration (`db/config/zstd_compression.xml`):
+   - ZSTD level 1 compression for all columns
+   - MergeTree engine optimizations
+
+3. Created initialization SQL script (`db/init/01_init.sql`):
+   - Creates `market_data` database
+   - Sample table with ZSTD(1) codec for float columns (price, volume)
+
+### Configuration Details:
+- **Database:** market_data
+- **User:** admin
+- **Password:** admin123
+- **Ports:** 8123 (HTTP), 9000 (Native)
+- **Compression:** ZSTD level 1 for float columns
+
+### Files Created:
+- `docker-compose.yml`
+- `db/config/zstd_compression.xml`
+- `db/init/01_init.sql`
+
+### Note:
+Docker Desktop must be running to test the container. Run `docker-compose up -d` to start ClickHouse.
+
+---
