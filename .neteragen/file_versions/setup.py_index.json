@@ -1,0 +1,33 @@
+{
+  "file_name": "setup.py",
+  "revisions": [
+    {
+      "revision_id": "b846be6f-fd6e-4acf-a499-39c279bd1674",
+      "metadata": {
+        "timestamp": "2026-03-08T14:58:47.459752",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 418,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T14:58:47.462261"
+    },
+    {
+      "revision_id": "66e9e7d8-6ab7-4776-9292-acc05408911b",
+      "metadata": {
+        "timestamp": "2026-03-08T14:58:47.455748",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 0,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": null
+      },
+      "saved_at": "2026-03-08T14:58:47.457751"
+    }
+  ]
+}

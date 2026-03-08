@@ -1,0 +1,16 @@
+{
+  "file_name": "meta/plans/task-015-eip712-signing.md",
+  "revision_id": "215a9992-ac37-46b1-afc3-9d0b49e34b5b",
+  "metadata": {
+    "timestamp": "2026-03-08T15:04:44.391227",
+    "type": "cache_version",
+    "source": "ToolTextFileEdit",
+    "size": 1868,
+    "is_reverted": false,
+    "git_branch_name": "main",
+    "agent_name": "Many",
+    "description": ""
+  },
+  "content": "---\nSECTION_ID: plans.task-015-eip712-signing\nTYPE: plan\nSTATUS: completed\nPRIORITY: high\n---\n\n# TASK-015: Polymarket Local EIP-712 Signing\n\nGOAL: Implement local EIP-712 order signing for Polymarket CLOB API without transmitting private keys over network\nTIMELINE: 1 day\n\n## Task Checklist\n\n### Phase 1: Research & Setup\n- [ ] Research Polymarket CLOB API EIP-712 signing requirements\n- [ ] Create `backend/signing/__init__.py` - Module initialization\n- [ ] Add required dependencies (eth-account, web3)\n\n### Phase 2: EIP-712 Implementation\n- [ ] Create `backend/signing/eip712.py` - EIP-712 typed data signing\n- [ ] Implement domain separator for Polymarket\n- [ ] Implement Order struct types\n- [ ] Implement sign_typed_data function\n\n### Phase 3: Polymarket Integration\n- [ ] Create `backend/signing/polymarket_signer.py` - Polymarket-specific signing\n- [ ] Integrate with Vault for private key loading\n- [ ] Implement order signing with proper types\n- [ ] Ensure private key never leaves memory\n\n### Phase 4: Testing & Validation\n- [ ] Create `tests/test_eip712_signing.py` - Unit tests\n- [ ] Test mock order signing\n- [ ] Verify signature format matches API docs\n- [ ] Update tasks.json status to done\n\n## Success Criteria\n- [ ] EIP-712 signing implemented correctly\n- [ ] Private keys loaded from vault, never transmitted\n- [ ] Signatures match Polymarket CLOB API format\n- [ ] All tests pass\n- [ ] No private key leakage to logs/stdout\n\n## Technical Requirements\n\n### EIP-712 Components:\n- Domain separator (chainId, verifyingContract)\n- Order struct (maker, taker, tokenId, makerToken, takerToken, etc.)\n- Typed data signing with eth_account\n\n### Security:\n- Private keys loaded from vault only\n- Keys stored in memory only during signing\n- No key transmission over network\n- No key leakage to logs\n\n## Dependencies\n- TASK-014 ✅ (Vault for secure key storage)\n",
+  "saved_at": "2026-03-08T15:04:44.391227"
+}

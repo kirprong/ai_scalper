@@ -1,0 +1,16 @@
+{
+  "file_name": ".temp/test_direct_ws.py",
+  "revision_id": "cc6cbba5-eedb-42a9-936a-7e6a7e381a30",
+  "metadata": {
+    "timestamp": "2026-03-08T13:42:35.992800",
+    "type": "cache_version",
+    "source": "ToolTextFileEdit",
+    "size": 2447,
+    "is_reverted": false,
+    "git_branch_name": "main",
+    "agent_name": "Cody",
+    "description": ""
+  },
+  "content": "#!/usr/bin/env python3\n\"\"\"Direct WebSocket test - connect to stream URL immediately.\"\"\"\n\nimport asyncio\nimport sys\nsys.path.insert(0, '.')\n\ntry:\n    import ujson as json\nexcept ImportError:\n    import json\n\nimport websockets\n\n\nasync def main():\n    \"\"\"Test direct connection to Binance stream.\"\"\"\n    # Direct URL for BTCUSDT markPrice@1s stream\n    url = \"wss://fstream.binance.com/stream?streams=btcusdt@markPrice@1s\"\n    \n    print(\"=\" * 60)\n    print(\"Direct WebSocket Test\")\n    print(\"=\" * 60)\n    print(f\"Connecting to: {url}\")\n    print(\"=\" * 60)\n    print()\n    \n    message_count = 0\n    \n    try:\n        async with websockets.connect(url, ping_interval=20, ping_timeout=20) as ws:\n            print(\"Connected! Waiting for messages...\")\n            print()\n            \n            # Receive messages for 10 seconds\n            for i in range(10):\n                try:\n                    message = await asyncio.wait_for(ws.recv(), timeout=1.0)\n                    data = json.loads(message)\n                    message_count += 1\n                    \n                    # Parse the data\n                    if \"stream\" in data:\n                        stream = data[\"stream\"]\n                        msg_data = data[\"data\"]\n                        event_type = msg_data.get(\"e\", \"\")\n                        \n                        if event_type == \"markPriceUpdate\":\n                            symbol = msg_data.get(\"s\", \"\")\n                            mark_price = float(msg_data.get(\"p\", 0))\n                            index_price = float(msg_data.get(\"i\", 0))\n                            funding_rate = float(msg_data.get(\"r\", 0))\n                            \n                            print(f\"[{message_count:3d}] {symbol}:\")\n                            print(f\"      Mark Price  = ${mark_price:,.2f}\")\n                            print(f\"      Index Price = ${index_price:,.2f}\")\n                            print(f\"      Funding Rate = {funding_rate:.6f}\")\n                            print()\n                except asyncio.TimeoutError:\n                    # No message received in 1 second, continue\n                    pass\n                    \n    except Exception as e:\n        print(f\"Error: {e}\")\n        import traceback\n        traceback.print_exc()\n    \n    print(\"=\" * 60)\n    print(f\"Test complete. Received {message_count} messages.\")\n    print(\"=\" * 60)\n\n\nif __name__ == \"__main__\":\n    asyncio.run(main())\n",
+  "saved_at": "2026-03-08T13:42:35.994313"
+}

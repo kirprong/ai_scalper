@@ -1,0 +1,16 @@
+{
+  "file_name": ".temp/test_import.py",
+  "revision_id": "6ba437a1-a0e7-4ef1-8adc-3263ac0b0ab2",
+  "metadata": {
+    "timestamp": "2026-03-08T13:11:44.709009",
+    "type": "cache_version",
+    "source": "ToolTextFileEdit",
+    "size": 334,
+    "is_reverted": false,
+    "git_branch_name": "main",
+    "agent_name": "Archy",
+    "description": ""
+  },
+  "content": "#!/usr/bin/env python3\nimport sys\nsys.path.insert(0, '.')\nfrom backend.streaming.binance_websocket import BinanceWebSocketClient\n\nprint('Import successful!')\nprint('BinanceWebSocketClient class exists:', hasattr(BinanceWebSocketClient, '__init__'))\nprint('Methods:', [m for m in dir(BinanceWebSocketClient) if not m.startswith('_')])\n",
+  "saved_at": "2026-03-08T13:11:44.712542"
+}

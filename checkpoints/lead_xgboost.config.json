@@ -1,0 +1,73 @@
+{
+  "config": {
+    "max_depth": 6,
+    "learning_rate": 0.1,
+    "n_estimators": 50,
+    "objective": "binary:logistic",
+    "booster": "gbtree",
+    "min_child_weight": 1.0,
+    "gamma": 0.0,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "reg_alpha": 0.0,
+    "reg_lambda": 1.0,
+    "scale_pos_weight": 5.666666666666667,
+    "max_delta_step": 0,
+    "early_stopping_rounds": 10,
+    "eval_metric": [
+      "auc",
+      "logloss"
+    ],
+    "confidence_threshold": 0.85,
+    "feature_names": [
+      "price",
+      "price_velocity",
+      "price_acceleration",
+      "volume",
+      "volume_surge",
+      "volume_velocity",
+      "taker_buy_sell_ratio",
+      "order_imbalance",
+      "trade_count",
+      "avg_trade_size",
+      "trade_size_std",
+      "hurst_exponent",
+      "ema_crossings",
+      "mean_reversion_score"
+    ],
+    "random_state": 42
+  },
+  "scaler_mean": [
+    100.24293503480885,
+    0.04563761935937927,
+    0.016394656984481167,
+    1403.123827271494,
+    0.239078277915357,
+    0.030135687315891297,
+    0.5373385828116153,
+    0.028077729902300386,
+    57.61416666666667,
+    24.744578126192014,
+    11.459403849049703,
+    0.5221126060141538,
+    1.3891666666666667,
+    0.46185975652085937
+  ],
+  "scaler_scale": [
+    0.8471169630812806,
+    0.23526640344947689,
+    0.09700230705184718,
+    541.0902177233927,
+    0.23621614435016047,
+    0.16560963419181352,
+    0.110331562016915,
+    0.1653417303218232,
+    19.57455177222031,
+    5.738622157837453,
+    12.605297073401452,
+    0.07937645958512171,
+    1.231505120213112,
+    0.14316607738562862
+  ],
+  "is_fitted": true
+}

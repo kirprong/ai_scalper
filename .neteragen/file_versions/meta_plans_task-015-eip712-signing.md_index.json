@@ -1,0 +1,61 @@
+{
+  "file_name": "meta/plans/task-015-eip712-signing.md",
+  "revisions": [
+    {
+      "revision_id": "02fef09e-fa1f-40c0-9403-8b0c4f27318a",
+      "metadata": {
+        "timestamp": "2026-03-08T15:05:05.397649",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 748,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T15:05:05.399903"
+    },
+    {
+      "revision_id": "215a9992-ac37-46b1-afc3-9d0b49e34b5b",
+      "metadata": {
+        "timestamp": "2026-03-08T15:04:44.391227",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 1868,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T15:04:44.394762"
+    },
+    {
+      "revision_id": "6d2096ce-ad32-499d-b7cb-31760d156a3f",
+      "metadata": {
+        "timestamp": "2026-03-08T14:52:29.086695",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 1870,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T14:52:29.089922"
+    },
+    {
+      "revision_id": "516bef62-91b6-4af2-b3a5-b7cc5e7440c8",
+      "metadata": {
+        "timestamp": "2026-03-08T14:52:29.071636",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 0,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": null
+      },
+      "saved_at": "2026-03-08T14:52:29.077148"
+    }
+  ]
+}

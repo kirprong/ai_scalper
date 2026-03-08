@@ -1,0 +1,89 @@
+{
+  "file_name": "meta/plans/task-014-local-vault.md",
+  "revisions": [
+    {
+      "revision_id": "469545aa-21e8-4f6e-b11b-ae63cdfac75f",
+      "metadata": {
+        "timestamp": "2026-03-08T14:36:08.399760",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 1916,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T14:36:08.401761"
+    },
+    {
+      "revision_id": "711466c9-3576-478b-9726-c6be5dd36a0c",
+      "metadata": {
+        "timestamp": "2026-03-08T14:35:18.475970",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 1916,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T14:35:18.481264"
+    },
+    {
+      "revision_id": "0ca36cfc-e94a-485c-8e33-2db025322853",
+      "metadata": {
+        "timestamp": "2026-03-08T14:35:18.469424",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 1918,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T14:35:18.476978"
+    },
+    {
+      "revision_id": "6744ab97-a662-4297-87e8-7ba7b247797a",
+      "metadata": {
+        "timestamp": "2026-03-08T14:34:45.928197",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 1918,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T14:34:45.937882"
+    },
+    {
+      "revision_id": "e13a3ee1-05c6-421f-a7a9-bc13375cd374",
+      "metadata": {
+        "timestamp": "2026-03-08T14:31:05.977319",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 1918,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T14:31:05.979829"
+    },
+    {
+      "revision_id": "3a0af28f-9c5f-4716-b668-6b03d49844c4",
+      "metadata": {
+        "timestamp": "2026-03-08T14:31:05.972155",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 0,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": null
+      },
+      "saved_at": "2026-03-08T14:31:05.974317"
+    }
+  ]
+}

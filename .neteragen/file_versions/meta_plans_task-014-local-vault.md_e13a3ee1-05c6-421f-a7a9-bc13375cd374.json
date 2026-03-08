@@ -1,0 +1,16 @@
+{
+  "file_name": "meta/plans/task-014-local-vault.md",
+  "revision_id": "e13a3ee1-05c6-421f-a7a9-bc13375cd374",
+  "metadata": {
+    "timestamp": "2026-03-08T14:31:05.977319",
+    "type": "cache_version",
+    "source": "ToolTextFileEdit",
+    "size": 1918,
+    "is_reverted": false,
+    "git_branch_name": "main",
+    "agent_name": "Many",
+    "description": ""
+  },
+  "content": "---\nSECTION_ID: plans.task-014-local-vault\nTYPE: plan\nSTATUS: in_progress\nPRIORITY: critical\n---\n\n# TASK-014: Local Vault (.env AES-256 Encryption)\n\nGOAL: Implement secure local vault for .env file encryption with AES-256, memory-only key loading, and log sanitization\nTIMELINE: 1 day\n\n## Task Checklist\n\n### Phase 1: Core Vault Implementation\n- [*] Create `backend/vault/__init__.py` - Vault module initialization\n- [ ] Create `backend/vault/encryption.py` - AES-256 encryption/decryption\n- [ ] Create `backend/vault/key_manager.py` - System key management\n- [ ] Create `backend/vault/vault.py` - Main vault class\n\n### Phase 2: .env Integration\n- [ ] Create encrypted .env.vault file format\n- [ ] Implement .env -> .env.vault encryption script\n- [ ] Implement .env.vault -> memory loading (no disk writes)\n- [ ] Add log sanitization (no key leakage to stdout/logs)\n\n### Phase 3: Testing & Validation\n- [ ] Create `tests/test_vault.py` - Unit tests\n- [ ] Create `scripts/test_vault_integration.py` - Integration test\n- [ ] Test: encrypt mock_key, load to memory, verify no stdout leakage\n- [ ] Update tasks.json status to done\n\n## Success Criteria\n- [ ] AES-256 encryption/decryption working\n- [ ] Keys loaded to RAM only at startup\n- [ ] No key leakage to stdout or logs\n- [ ] System key management implemented\n- [ ] All tests pass\n\n## Technical Requirements\n\n### Encryption:\n- Algorithm: AES-256-GCM (Galois/Counter Mode)\n- Key derivation: PBKDF2 with system-specific salt\n- System key: Generated from machine-specific identifiers\n\n### Security:\n- Keys never written to disk in plaintext\n- Keys never logged or printed to stdout\n- Memory-only storage during runtime\n- Secure key derivation from system identifiers\n\n### File Format:\n```\n.env.vault structure:\n- Header: VAULT_V1\\n\n- Salt: 32 bytes (base64)\n- Nonce: 12 bytes (base64)\n- Encrypted data: base64\n```\n\n## Dependencies\n- TASK-001 ✅ (Project initialization)\n",
+  "saved_at": "2026-03-08T14:31:05.977319"
+}
