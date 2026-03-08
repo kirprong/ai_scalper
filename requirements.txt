@@ -5,6 +5,9 @@ uvicorn[standard]>=0.24.0
 # HTTP client
 aiohttp>=3.9.0
 
+# Async file operations
+aiofiles>=23.2.0
+
 # Data validation
 pydantic>=2.5.0
 pydantic-settings>=2.1.0
