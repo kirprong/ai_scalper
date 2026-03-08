@@ -144,3 +144,70 @@ ORDER BY (symbol, ts)
 3. Verify table creation: `clickhouse-client --query "SHOW TABLES FROM market_data"`
 
 ---
+
+## 2026-03-08 - TASK-004 ✅ COMPLETED
+
+### Task: Парсер исторических данных Binance Futures (AggTrades) -> БД
+**Category:** integration
+**Priority:** critical
+
+### Completed Work:
+1. Created `backend/parsers/__init__.py` - Parser module initialization
+2. Created `backend/parsers/binance_historical.py` - Main parser script with:
+   - `BinanceHistoricalParser` async class for downloading and processing data
+   - Downloads CSV archives from Binance Vision API
+   - Extracts and parses AggTrades CSV format
+   - Transforms data to market_data schema
+   - Inserts into ClickHouse in batches of 100,000 rows
+   - Retry logic with exponential backoff (3 retries)
+   - Progress logging and error handling
+   - CLI entry point with argparse
+
+3. Updated `requirements.txt`:
+   - Added `aiofiles>=23.2.0` for async file operations
+
+### Parser Features:
+- **Download URL**: `https://data.binance.vision/data/futures/um/daily/aggTrades/{SYMBOL}/{SYMBOL}-aggTrades-{DATE}.zip`
+- **Batch Size**: 100,000 rows per insert
+- **Retry Logic**: 3 retries with 5-second exponential backoff
+- **Data Transformation**: 
+  - `aggregate_trade_id` → (used for parsing)
+  - `price` → `price`
+  - `quantity` → `volume`
+  - `timestamp` → `ts` (converted from Unix ms to DateTime)
+  - `is_buyer_maker` → `side` (true=sell, false=buy)
+  - `source` → "binance"
+
+### CLI Usage:
+```bash
+# Download 1 day of BTCUSDT data (yesterday)
+python -m backend.parsers.binance_historical
+
+# Download specific date
+python -m backend.parsers.binance_historical --start-date 2026-03-07
+
+# Download multiple days
+python -m backend.parsers.binance_historical --start-date 2026-03-01 --days 7
+
+# Use different symbol
+python -m backend.parsers.binance_historical --symbol ETHUSDT --start-date 2026-03-07
+```
+
+### Files Created:
+- `backend/parsers/__init__.py`
+- `backend/parsers/binance_historical.py`
+
+### Files Modified:
+- `requirements.txt`
+- `tasks.json`
+
+### Test Instructions:
+1. Start ClickHouse: `docker-compose up -d`
+2. Run migrations: `python scripts/run_migrations.py`
+3. Run parser: `python -m backend.parsers.binance_historical --start-date 2026-03-07`
+4. Verify data: `SELECT count() FROM market_data.market_data WHERE symbol='BTCUSDT'`
+
+### Note:
+Docker Desktop must be running for full integration testing. The parser code is complete and syntax-verified.
+
+---
