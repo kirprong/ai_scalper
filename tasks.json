@@ -1,0 +1,692 @@
+{
+    "agent_instructions": {
+        "before_start": [
+            "Прочитай этот файл и git log --oneline -20",
+            "Выбери ОДНУ задачу со статусом pending и наивысшим приоритетом",
+            "Проверь, что все dependencies этой задачи имеют статус done"
+        ],
+        "during_work": [
+            "Работай только над выбранной задачей",
+            "Делай коммиты после каждого логического изменения",
+            "Не трогай код, не связанный с текущей задачей"
+        ],
+        "before_finish": [
+            "Выполни ВСЕ test_steps из задачи",
+            "Меняй status на done ТОЛЬКО после успешного прохождения всех тестов",
+            "Напиши summary в progress.md",
+            "ЗАПРЕЩЕНО удалять или редактировать задачи — только менять status"
+        ]
+    },
+    "tasks": [
+        {
+            "id": "TASK-001",
+            "category": "infrastructure",
+            "priority": "critical",
+            "description": "Инициализация проекта (FastAPI, структура папок backend/frontend/db, requirements)",
+            "acceptance_criteria": [
+                "Созданы базовые папки проекта",
+                "Создан requirements.txt и main.py с /health"
+            ],
+            "test_steps": [
+                "uvicorn backend.main:app",
+                "GET /health возвращает 200"
+            ],
+            "dependencies": [],
+            "status": "done"
+        },
+        {
+            "id": "TASK-002",
+            "category": "infrastructure",
+            "priority": "critical",
+            "description": "ClickHouse Docker-Compose",
+            "acceptance_criteria": [
+                "Один docker-compose файл для ClickHouse ZSTD"
+            ],
+            "test_steps": [
+                "docker-compose up -d",
+                "Успешный вход в ClickHouse"
+            ],
+            "dependencies": [
+                "TASK-001"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-003",
+            "category": "infrastructure",
+            "priority": "critical",
+            "description": "Миграции БД: market_data столбцовое хранение и OHLC View",
+            "acceptance_criteria": [
+                "Таблица market_data с индексами (symbol, ts), ZSTD(1) для float",
+                "Агрегирующие View (1s, 5s, 10s OHLC)"
+            ],
+            "test_steps": [
+                "Запуск скрипта миграции",
+                "Лог подтверждения создания"
+            ],
+            "dependencies": [
+                "TASK-002"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-004",
+            "category": "integration",
+            "priority": "critical",
+            "description": "Парсер исторических данных Binance Futures (AggTrades) -> БД",
+            "acceptance_criteria": [
+                "Скрипт качает CSV-архивы Binance Vision/Historical, распаковывает, льет в БД чанками по 100k"
+            ],
+            "test_steps": [
+                "Скачать 1 день",
+                "Счетчик rows == ожидаемому"
+            ],
+            "dependencies": [
+                "TASK-003"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-005",
+            "category": "integration",
+            "priority": "critical",
+            "description": "Парсер Polymarket Historical Data -> БД",
+            "acceptance_criteria": [
+                "Получение сделок Poly через API/Дампы",
+                "Сопоставление market_id с таргетом BTC"
+            ],
+            "test_steps": [
+                "Скачать 1 день исторической разницы для BTC таргета",
+                "SQL запрос к БД возвращает сделки Polymarket"
+            ],
+            "dependencies": [
+                "TASK-003"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-006",
+            "category": "functional",
+            "priority": "critical",
+            "description": "Синхронизатор времени (ASOF JOIN Time Aligner)",
+            "acceptance_criteria": [
+                "Модуль расчета Delta_T = Poly_TS - Binance_TS",
+                "Сопоставление с миллисекундной точностью через Clickhouse ASOF"
+            ],
+            "test_steps": [
+                "Тест: на 1 час данных вывод средней дельты времени"
+            ],
+            "dependencies": [
+                "TASK-004",
+                "TASK-005"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-007",
+            "category": "functional",
+            "priority": "high",
+            "description": "Feature Engineering: Базовые метрики на лету",
+            "acceptance_criteria": [
+                "Расчет std_dev(price), скорость изменения(Velocity), стаканный дисбаланс, Taker Buy/Sell ratio",
+                "Расчет Distance to Target (дельта до таргета Poly)"
+            ],
+            "test_steps": [
+                "unit-тесты функций с mock-датафреймами"
+            ],
+            "dependencies": [
+                "TASK-006"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-008",
+            "category": "functional",
+            "priority": "high",
+            "description": "Feature Engineering: Расширенные (Hurst Exponent & Zero Crossings)",
+            "acceptance_criteria": [
+                "Статистический поиск показателей возврата: показатель Херста",
+                "Метрика среднего пересечения (EMA Crossings для 10-15 раз за окно)"
+            ],
+            "test_steps": [
+                "unit-тест Херста на шум (флэт: <0.45) и линейный тренд (>0.55)"
+            ],
+            "dependencies": [
+                "TASK-007"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-009",
+            "category": "functional",
+            "priority": "critical",
+            "description": "Детектор Золотых Прямоугольников (find_rectangles)",
+            "acceptance_criteria": [
+                "Математический поиск коробки (rolling window 15min) + арбитражное целевое окно > 5%"
+            ],
+            "test_steps": [
+                "Прогон функции по дню истории",
+                "Вывод логов найденных 'Golden boxes' (min, max, ts bounds)"
+            ],
+            "dependencies": [
+                "TASK-008"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-010",
+            "category": "functional",
+            "priority": "critical",
+            "description": "Автоматическая разметка истории Labeling (Is_Golden_Box)",
+            "acceptance_criteria": [
+                "Обновление БД тегами: маркировка секунд внутри прямоугольника"
+            ],
+            "test_steps": [
+                "В Clickhouse SELECT COUNT где Is_Golden_Box = 1 > 0"
+            ],
+            "dependencies": [
+                "TASK-009"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-011",
+            "category": "functional",
+            "priority": "high",
+            "description": "Имплементация LSTM Контекстуальной Модели (RectangleLSTM)",
+            "acceptance_criteria": [
+                "PyTorch 2 слоя, 60 баров x 10c, Dropout 0.2, выход: вероятность",
+                "Обучение на Is_Golden_Box"
+            ],
+            "test_steps": [
+                "Обучение на 1 дне, вывод Loss/Accuracy"
+            ],
+            "dependencies": [
+                "TASK-010"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-012",
+            "category": "functional",
+            "priority": "high",
+            "description": "Имплементация XGBoost Триггерной Модели (LeadXGBoost)",
+            "acceptance_criteria": [
+                "Модель-триггер на 1с барах, ловит опережающие микро-всплески Binance",
+                "Моделирует Confidence Score > 0.85"
+            ],
+            "test_steps": [
+                "Обучение на 1 дне, Precision/Recall для сигналов Confidence>0.85"
+            ],
+            "dependencies": [
+                "TASK-011"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-013",
+            "category": "integration",
+            "priority": "critical",
+            "description": "Binance Futures Live WebSocket",
+            "acceptance_criteria": [
+                "Стримы markPrice & depth5",
+                "Быстрый парсинг через ujson"
+            ],
+            "test_steps": [
+                "Скрипт выводит 10 сек стрим markPrice в консоль"
+            ],
+            "dependencies": [
+                "TASK-001"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-014",
+            "category": "security",
+            "priority": "critical",
+            "description": "Локальный Vault (.env шифрование AES-256)",
+            "acceptance_criteria": [
+                "Шифрование приватных ключей системным ключом",
+                "Ключи загружаются в ОЗУ в момент старта (Log Sanitization)"
+            ],
+            "test_steps": [
+                "Зашифровать mock_key, запустить бота -> память загрузила ключ без записи в stdout"
+            ],
+            "dependencies": [
+                "TASK-001"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-015",
+            "category": "integration",
+            "priority": "high",
+            "description": "Polymarket Local EIP-712 Signing",
+            "acceptance_criteria": [
+                "Подпись ордеров CLOB API локально без передачи Private Key в сеть"
+            ],
+            "test_steps": [
+                "Mock order signed -> verify EIP-712 payload format matches API docs"
+            ],
+            "dependencies": [
+                "TASK-014"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-016",
+            "category": "integration",
+            "priority": "high",
+            "description": "Polymarket AIOHTTP API Client",
+            "acceptance_criteria": [
+                "Асинхронные HTTP запросы (Keep-Alive) к POST/DELETE orders, GET markets"
+            ],
+            "test_steps": [
+                "GET запрос на активные маркеты, assert status == 200"
+            ],
+            "dependencies": [
+                "TASK-015"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-017",
+            "category": "functional",
+            "priority": "critical",
+            "description": "Inference Engine: Async Predict Loop",
+            "acceptance_criteria": [
+                "Инференс XGB+LSTM в отдельном процессе (задержка <20ms)"
+            ],
+            "test_steps": [
+                "Мок 1 tick, замер времени Predict() -> <20ms"
+            ],
+            "dependencies": [
+                "TASK-012",
+                "TASK-013"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-018",
+            "category": "functional",
+            "priority": "critical",
+            "description": "Симулятор Paper Trading",
+            "acceptance_criteria": [
+                "Slippage Engine (0.01-0.02 cents)",
+                "Latency Simulation (задержка 200-500мс) и Fee Calc"
+            ],
+            "test_steps": [
+                "Спровоцировать ордер -> PnL учитывает лаг и slip"
+            ],
+            "dependencies": [
+                "TASK-016"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-019",
+            "category": "functional",
+            "priority": "critical",
+            "description": "Sniper Execution (Логика входа в позицию)",
+            "acceptance_criteria": [
+                "Условие входа: ML_Status == 1 & XGB_Conf > 0.85 & Poly_Lag подтвержден",
+                "Бот отсылает FOK или IOC ордер"
+            ],
+            "test_steps": [
+                "Мок-сигнал -> Проверка отправки Market Order в Poly"
+            ],
+            "dependencies": [
+                "TASK-017",
+                "TASK-018"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-020",
+            "category": "functional",
+            "priority": "critical",
+            "description": "Exit Strategy A (Double Trap - Limit Sell Target)",
+            "acceptance_criteria": [
+                "После покупки выставление Limit Sell на уровне Top_of_Box - 0.01"
+            ],
+            "test_steps": [
+                "Симулировать покупку -> Limit order placed at correct bound"
+            ],
+            "dependencies": [
+                "TASK-019"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-021",
+            "category": "functional",
+            "priority": "critical",
+            "description": "Exit Strategy B (Dynamic Market Stop-Loss)",
+            "acceptance_criteria": [
+                "Резкое падение Binance на >20% от высоты коробки -> Мгновенный MARKET SELL по Поли"
+            ],
+            "test_steps": [
+                "Уронить 'рынок' -> Вызов отмены лимитки и отправки market-sell"
+            ],
+            "dependencies": [
+                "TASK-020"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-022",
+            "category": "functional",
+            "priority": "high",
+            "description": "Backtesting: Walk-Forward Optimization Engine",
+            "acceptance_criteria": [
+                "Функционал запуска бэк-теста в скользящем окне (teach 5 days, test 1 day)",
+                "Исключение переобучения (overfitting) моделей"
+            ],
+            "test_steps": [
+                "Запуск простейшего WFA на мок-сете и получение лога 'Period 1: passed'"
+            ],
+            "dependencies": [
+                "TASK-011",
+                "TASK-012",
+                "TASK-018"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-023",
+            "category": "functional",
+            "priority": "high",
+            "description": "Backtesting: Simulation Matrix (Исследование проскальзываний)",
+            "acceptance_criteria": [
+                "Прогон стратегии через разные уровни грязи спреда (1%, 2%, 3%)"
+            ],
+            "test_steps": [
+                "Запуск матрицы -> Таблица прибыли по % спрэда"
+            ],
+            "dependencies": [
+                "TASK-022"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-024",
+            "category": "functional",
+            "priority": "medium",
+            "description": "Блок расчет Телеметрии ИИ",
+            "acceptance_criteria": [
+                "Расчет: Opportunity Capture Rate (>70%), Edge per Trade, Box Stability"
+            ],
+            "test_steps": [
+                "Запуск статистики -> Вывод OCR, Edge в лог"
+            ],
+            "dependencies": [
+                "TASK-019"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-025",
+            "category": "functional",
+            "priority": "medium",
+            "description": "Evolution: Пайплайн Daily Re-training",
+            "acceptance_criteria": [
+                "Авто-скрипт проверяет вчерашний день. Если Accuracy < 75% -> fine-tuning на 48h данных"
+            ],
+            "test_steps": [
+                "Спровоцировать <75% -> Процесс обучения запускается автоматически"
+            ],
+            "dependencies": [
+                "TASK-024",
+                "TASK-011"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-026",
+            "category": "functional",
+            "priority": "medium",
+            "description": "Evolution: Model Validation & Hot Reload in RAM",
+            "acceptance_criteria": [
+                "Прогон дообученной модели на 3 часах истории",
+                "Если профит подтвержден -> Бесшовное обновление весов в боевом боте"
+            ],
+            "test_steps": [
+                "Успешный бэктест 3х часов -> Weights hot-reloaded safely logs"
+            ],
+            "dependencies": [
+                "TASK-025"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-027",
+            "category": "ui",
+            "priority": "high",
+            "description": "Интерфейс: Rich Terminal Logger (Серверная консоль)",
+            "acceptance_criteria": [
+                "Создание интерфейса терминала на библиотеке `rich` (python)",
+                "Отображение PnL Live, ML Status Console logs"
+            ],
+            "test_steps": [
+                "python console_ui/main.py -> Отрисовка красивых дашбордов в stdout"
+            ],
+            "dependencies": [
+                "TASK-017"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-028",
+            "category": "security",
+            "priority": "high",
+            "description": "Программный Panic Switch (Limit убытков)",
+            "acceptance_criteria": [
+                "3 убыточных сделки за 15 минут -> Halt system",
+                "Notification в Telegram"
+            ],
+            "test_steps": [
+                "Отравить 3 убыточные сделки -> Status: Halted"
+            ],
+            "dependencies": [
+                "TASK-019"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-029",
+            "category": "security",
+            "priority": "high",
+            "description": "Hardware Kill-Switch (Ctrl+C Cancel All Handler)",
+            "acceptance_criteria": [
+                "Перехват SIGINT",
+                "Вызов cancel_all_orders & market_sell(all) перед выходом"
+            ],
+            "test_steps": [
+                "Запустить -> Нажать Ctrl+C -> Лог: Cancelled orders & Liquidated positions"
+            ],
+            "dependencies": [
+                "TASK-016"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-030",
+            "category": "infrastructure",
+            "priority": "high",
+            "description": "Full Dockerization & Orchestration",
+            "acceptance_criteria": [
+                "Общий docker-compose.yml для bot_backend, frontend, clickhouse_db",
+                "Тюнинг выделения 8Гб ОЗУ под базу данных"
+            ],
+            "test_steps": [
+                "docker-compose up --build -> Все 3 подсистемы работают вместе"
+            ],
+            "dependencies": [
+                "TASK-001",
+                "TASK-002"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-031",
+            "category": "infrastructure",
+            "priority": "low",
+            "description": "Боевой Сервер: AWS us-east-1 Deployment Tuning",
+            "acceptance_criteria": [
+                "Bash скрипт настройки (Tuning TCP stack Ubuntu 22.04) для минимизации Network Latency"
+            ],
+            "test_steps": [
+                "Тест-ревью скрипта настройки сети / etc/sysctl.conf"
+            ],
+            "dependencies": [
+                "TASK-030"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-032",
+            "category": "infrastructure",
+            "priority": "low",
+            "description": "SaaS prep: Мультиаккаунты & Изоляция Sub-Accounts",
+            "acceptance_criteria": [
+                "Архитектура позволяет запускать несколько кошельков API Keys в изолированных экземплярах памяти"
+            ],
+            "test_steps": [
+                "Создать конфигурацию на 2 юзера -> Trades идут параллельно подписи"
+            ],
+            "dependencies": [
+                "TASK-014"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-033",
+            "category": "integration",
+            "priority": "low",
+            "description": "SaaS prep: PDF Performance Logs Exporter",
+            "acceptance_criteria": [
+                "Выгрузка отчетов PnL, OCR, Stats в PDF документы (отчеты инвесторов)"
+            ],
+            "test_steps": [
+                "Export -> PDF сгенерирован успешно"
+            ],
+            "dependencies": [
+                "TASK-024"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-034",
+            "category": "ui",
+            "priority": "medium",
+            "description": "Web UI: Инициализация React (Vite+Tailwind)",
+            "acceptance_criteria": [
+                "Развертывание веб-фронтенда ('The War Room')"
+            ],
+            "test_steps": [
+                "npm start -> 200 OK"
+            ],
+            "dependencies": [
+                "TASK-001"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-035",
+            "category": "integration",
+            "priority": "medium",
+            "description": "Web UI: Socket.io коммуникация (Backend <-> Frontend)",
+            "acceptance_criteria": [
+                "Стриминг тиков из Python -> React в реальном времени"
+            ],
+            "test_steps": [
+                "Сообщения приходят в веб-консоль браузера"
+            ],
+            "dependencies": [
+                "TASK-034"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-036",
+            "category": "ui",
+            "priority": "medium",
+            "description": "Web UI: Lightweight Charts Graph (Свечи 10s + 1s Ticks)",
+            "acceptance_criteria": [
+                "TradingView Lightweight Chart визуализирует таймфрейм Binance/Poly"
+            ],
+            "test_steps": [
+                "Динамический рендер мок-компонентов на канвасе"
+            ],
+            "dependencies": [
+                "TASK-035"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-037",
+            "category": "ui",
+            "priority": "medium",
+            "description": "Web UI: Graphic Overlay (Отрисовка прямоугольников)",
+            "acceptance_criteria": [
+                "AI рисует Box Overlay. Полупрозрачные зоны с границами Box"
+            ],
+            "test_steps": [
+                "Координаты Box -> появления прямоугольника на канвасе"
+            ],
+            "dependencies": [
+                "TASK-036"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-038",
+            "category": "ui",
+            "priority": "medium",
+            "description": "Web UI: Order Book Visualizer",
+            "acceptance_criteria": [
+                "Гистограмма дисбаланса Bids vs Asks"
+            ],
+            "test_steps": [
+                "Изменение данных ордер-бука -> Изменение градиента / соотношения"
+            ],
+            "dependencies": [
+                "TASK-035"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-039",
+            "category": "ui",
+            "priority": "medium",
+            "description": "Web UI: Панель PnL и ML Accuracy",
+            "acceptance_criteria": [
+                "Учет 'Realized PnL', 'Potential PnL', графики Accuracy/Loss от ML"
+            ],
+            "test_steps": [
+                "Mock updates -> изменение цифровых счетчиков React State"
+            ],
+            "dependencies": [
+                "TASK-035"
+            ],
+            "status": "pending"
+        },
+        {
+            "id": "TASK-040",
+            "category": "security",
+            "priority": "critical",
+            "description": "Web UI: Большая Красная Кнопка (UI Panic Switch)",
+            "acceptance_criteria": [
+                "Крупный UI элемент, который отсылает HALT команду серверу Socket.io"
+            ],
+            "test_steps": [
+                "Нажатие -> Вызов серверной процедуры Cancel All Orders"
+            ],
+            "dependencies": [
+                "TASK-034",
+                "TASK-029"
+            ],
+            "status": "pending"
+        }
+    ]
+}
