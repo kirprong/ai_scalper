@@ -1,0 +1,16 @@
+{
+  "file_name": "backend/safety/__init__.py",
+  "revision_id": "1208dd2e-8a5a-4a03-8166-49f22bf26c7b",
+  "metadata": {
+    "timestamp": "2026-03-08T17:08:19.769012",
+    "type": "cache_version",
+    "source": "ToolTextFileEdit",
+    "size": 190,
+    "is_reverted": false,
+    "git_branch_name": "main",
+    "agent_name": "Many",
+    "description": ""
+  },
+  "content": "\"\"\"\nSafety module for risk management and emergency controls.\n\"\"\"\n\nfrom .panic_switch import PanicSwitch, TradeResult, SystemStatus\n\n__all__ = [\"PanicSwitch\", \"TradeResult\", \"SystemStatus\"]\n",
+  "saved_at": "2026-03-08T17:08:19.769012"
+}

@@ -1,0 +1,33 @@
+{
+  "file_name": "frontend/package.json",
+  "revisions": [
+    {
+      "revision_id": "3ff7a887-cae4-464e-a754-ea7ba433b45b",
+      "metadata": {
+        "timestamp": "2026-03-08T17:18:20.901134",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 525,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T17:18:20.950452"
+    },
+    {
+      "revision_id": "93299b45-4f43-488d-a244-5dfb6b747e76",
+      "metadata": {
+        "timestamp": "2026-03-08T17:18:20.869264",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 0,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": null
+      },
+      "saved_at": "2026-03-08T17:18:20.873385"
+    }
+  ]
+}

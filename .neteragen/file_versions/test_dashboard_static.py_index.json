@@ -1,0 +1,47 @@
+{
+  "file_name": "test_dashboard_static.py",
+  "revisions": [
+    {
+      "revision_id": "e3c95601-6670-42b8-8041-273a9441c982",
+      "metadata": {
+        "timestamp": "2026-03-08T17:37:16.998300",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 1,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T17:37:17.020894"
+    },
+    {
+      "revision_id": "d6a233cf-c570-41ad-9ff6-b0872eac1212",
+      "metadata": {
+        "timestamp": "2026-03-08T17:35:50.097085",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 1137,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T17:35:50.106746"
+    },
+    {
+      "revision_id": "5a5485f8-ad6b-475b-bddf-cf9e3a41b781",
+      "metadata": {
+        "timestamp": "2026-03-08T17:35:50.084960",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 0,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": null
+      },
+      "saved_at": "2026-03-08T17:35:50.092551"
+    }
+  ]
+}

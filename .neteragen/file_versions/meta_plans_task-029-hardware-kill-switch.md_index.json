@@ -1,0 +1,33 @@
+{
+  "file_name": "meta/plans/task-029-hardware-kill-switch.md",
+  "revisions": [
+    {
+      "revision_id": "76542ee8-687a-4702-a782-4df97b705565",
+      "metadata": {
+        "timestamp": "2026-03-08T17:26:58.089554",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 5118,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T17:26:58.093630"
+    },
+    {
+      "revision_id": "5f5651d4-9dc6-4c68-a5da-a2b23523220c",
+      "metadata": {
+        "timestamp": "2026-03-08T17:26:58.083172",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 0,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": null
+      },
+      "saved_at": "2026-03-08T17:26:58.085186"
+    }
+  ]
+}

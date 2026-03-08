@@ -1,0 +1,33 @@
+{
+  "file_name": "backend/execution/exit_strategy.py",
+  "revisions": [
+    {
+      "revision_id": "5df5bb7f-0b5c-4c87-b3fb-81dd9f45fd85",
+      "metadata": {
+        "timestamp": "2026-03-08T15:38:48.273031",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 4347,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Cody",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T15:38:48.275559"
+    },
+    {
+      "revision_id": "7e207ba1-1d7d-457f-a523-6d477711893a",
+      "metadata": {
+        "timestamp": "2026-03-08T15:38:48.267504",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 0,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Cody",
+        "description": null
+      },
+      "saved_at": "2026-03-08T15:38:48.269503"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "file_name": "meta/docs/progress.md",
+  "revision_id": "3c622e89-09aa-4ab1-9279-22f2bd1fd60b",
+  "metadata": {
+    "timestamp": "2026-03-08T15:39:47.244927",
+    "type": "cache_version",
+    "source": "ToolTextFileEdit",
+    "size": 1734,
+    "is_reverted": false,
+    "git_branch_name": "main",
+    "agent_name": "Cody",
+    "description": ""
+  },
+  "content": "---\nSECTION_ID: docs.progress\nTYPE: note\n---\n\n# Прогресс проекта AI Lead Scalper\n\n## Текущий прогресс\n\n**Выполнено задач:** 20/32\n\n### Последняя выполненная задача: TASK-020 (Exit Strategy A - Double Trap)\n\n**Статус:** ✅ Завершен\n\n**Что сделано:**\n- Создан модуль backend/execution/exit_strategy.py\n  - Класс ExitStrategyA для стратегии выхода\n  - Расчет exit price: Top_of_Box - 0.01\n  - Создание Limit Sell ордеров\n  - Обновление exit ордера при изменении box top\n  - Проверка условия stop loss (drop > 20% от высоты коробки)\n- Написаны тесты (backend/execution/test_exit_strategy.py)\n- Создан тестовый скрипт (test_task_020.py)\n\n**Результаты тестов:**\n- ✅ Exit price рассчитывается корректно\n- ✅ Limit Sell ордер создается правильно\n- ✅ Exit ордер обновляется при изменении box top\n- ✅ Stop loss не триггерится при нормальном движении\n- ✅ Stop loss триггерится при резком падении\n\n### Следующая задача: TASK-021 (Exit Strategy B - Dynamic Market Stop-Loss)\n\n## Выполненные задачи (1-18):\n\n1. **TASK-001**: Инициализация проекта ✅\n2. **TASK-002**: ClickHouse Docker-Compose ✅\n3. **TASK-003**: Миграции БД ✅\n4. **TASK-004**: Парсер Binance Futures ✅\n5. **TASK-005**: Парсер Polymarket ✅\n6. **TASK-006**: Синхронизатор времени ✅\n7. **TASK-007**: Feature Engineering базовые ✅\n8. **TASK-008**: Feature Engineering расширенные ✅\n9. **TASK-009**: Детектор золотых прямоугольников ✅\n10. **TASK-010**: Автоматическая разметка ✅\n11. **TASK-011**: LSTM модель ✅\n12. **TASK-012**: XGBoost модель ✅\n13. **TASK-013**: Binance WebSocket ✅\n14. **TASK-014**: Локальный Vault ✅\n15. **TASK-015**: Polymarket EIP-712 Signing ✅\n16. **TASK-016**: Polymarket API Client ✅\n17. **TASK-017**: Inference Engine ✅\n18. **TASK-018**: Paper Trading Simulator ✅\n",
+  "saved_at": "2026-03-08T15:39:47.245918"
+}

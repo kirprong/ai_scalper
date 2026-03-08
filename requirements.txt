@@ -22,6 +22,7 @@ asyncpg>=0.29.0
 # WebSocket support
 websockets>=12.0
 ujson>=5.9.0
+python-socketio>=5.10.0
 
 # Machine Learning
 torch>=2.0.0
@@ -39,3 +40,6 @@ httpx>=0.25.0
 cryptography>=41.0.0
 eth-account>=0.10.0
 web3>=6.0.0
+
+# Terminal UI
+rich>=13.0.0

@@ -1,0 +1,33 @@
+{
+  "file_name": "backend/inference/__init__.py",
+  "revisions": [
+    {
+      "revision_id": "dda5e8d6-2ebd-46ee-9678-83a75104b291",
+      "metadata": {
+        "timestamp": "2026-03-08T15:24:00.480633",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 582,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Cody",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T15:24:00.486168"
+    },
+    {
+      "revision_id": "2163e026-0aef-431d-9470-b2a545f75ccf",
+      "metadata": {
+        "timestamp": "2026-03-08T15:24:00.463495",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 0,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Cody",
+        "description": null
+      },
+      "saved_at": "2026-03-08T15:24:00.472073"
+    }
+  ]
+}

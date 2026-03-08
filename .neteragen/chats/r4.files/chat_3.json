@@ -1,0 +1,26 @@
+{
+    "chat_id": 3,
+    "topic": "New chat",
+    "focus_section_id": "r4.files",
+    "last_agent_name": "Many",
+    "last_modified_datetime": "2026-03-08T16:17:41.929066",
+    "messages": [
+        {
+            "name": "PO",
+            "message": "Проведи ревью по проекту, выясни, на какой задаче мы остановились. Было непредвиденное отключение, теперь время продолжить. И продолжаем.",
+            "message_raw": "Проведи ревью по проекту, выясни, на какой задаче мы остановились. Было непредвиденное отключение, теперь время продолжить. И продолжаем.",
+            "method": "USER",
+            "tasks": "",
+            "is_status_message": false,
+            "message_id": "721f1c48-fb8c-4c2a-a094-3d14f7fecce9",
+            "timestamp": "2026-03-08T16:17:41.675202",
+            "variation_index": 0,
+            "variations": [],
+            "images_data": {},
+            "documents_data": {},
+            "hidden_from_agent": false
+        }
+    ],
+    "mentioned_files": [],
+    "additional_context": ""
+}

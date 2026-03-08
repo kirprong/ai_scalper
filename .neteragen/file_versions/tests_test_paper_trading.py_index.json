@@ -1,0 +1,33 @@
+{
+  "file_name": "tests/test_paper_trading.py",
+  "revisions": [
+    {
+      "revision_id": "afe9e43b-642e-48f9-911c-39769a20ec14",
+      "metadata": {
+        "timestamp": "2026-03-08T15:31:37.949281",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 8946,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Cody",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T15:31:37.952284"
+    },
+    {
+      "revision_id": "16a8a6d9-ef39-47b3-b8b5-7bad3870a691",
+      "metadata": {
+        "timestamp": "2026-03-08T15:31:37.945749",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 0,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Cody",
+        "description": null
+      },
+      "saved_at": "2026-03-08T15:31:37.947274"
+    }
+  ]
+}

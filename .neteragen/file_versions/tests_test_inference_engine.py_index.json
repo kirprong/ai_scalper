@@ -1,0 +1,33 @@
+{
+  "file_name": "tests/test_inference_engine.py",
+  "revisions": [
+    {
+      "revision_id": "c5ef545a-49d6-46a7-b696-c0df5027cf4b",
+      "metadata": {
+        "timestamp": "2026-03-08T15:27:13.578150",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 11605,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Cody",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T15:27:13.582698"
+    },
+    {
+      "revision_id": "b657bc3a-efd4-4388-9b33-f02205d2472b",
+      "metadata": {
+        "timestamp": "2026-03-08T15:27:13.572624",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 0,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Cody",
+        "description": null
+      },
+      "saved_at": "2026-03-08T15:27:13.574628"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "file_name": "meta/docs/progress.md",
+  "revision_id": "e64cb2ee-4ec4-4bf3-977a-e67f9f73bb8b",
+  "metadata": {
+    "timestamp": "2026-03-08T15:38:14.166871",
+    "type": "cache_version",
+    "source": "ToolTextFileEdit",
+    "size": 1676,
+    "is_reverted": false,
+    "git_branch_name": "main",
+    "agent_name": "Cody",
+    "description": ""
+  },
+  "content": "---\nSECTION_ID: docs.progress\nTYPE: note\n---\n\n# Прогресс проекта AI Lead Scalper\n\n## Текущий прогресс\n\n**Выполнено задач:** 19/32\n\n### Последняя выполненная задача: TASK-019 (Sniper Execution)\n\n**Статус:** ✅ Завершен\n\n**Что сделано:**\n- Создан модуль backend/execution/sniper.py\n  - Класс TradingSignal для сигналов ML моделей\n  - Класс Order для представления ордеров\n  - Класс SniperExecution для логики входа в позицию\n  - Условия входа: ML_Status == 1 & XGB_Conf > 0.85 & Poly_Lag подтвержден\n  - Поддержка FOK/IOC ордеров\n  - Mock реализация отправки ордеров в Polymarket\n- Написаны тесты (backend/execution/test_sniper.py)\n- Создан тестовый скрипт (test_task_019.py)\n\n**Результаты тестов:**\n- ✅ Valid signal выполняется корректно\n- ✅ Invalid signal отклоняется\n- ✅ Low confidence signal отклоняется\n- ✅ Position management работает\n\n### Следующая задача: TASK-020 (Exit Strategy A - Double Trap)\n\n## Выполненные задачи (1-18):\n\n1. **TASK-001**: Инициализация проекта ✅\n2. **TASK-002**: ClickHouse Docker-Compose ✅\n3. **TASK-003**: Миграции БД ✅\n4. **TASK-004**: Парсер Binance Futures ✅\n5. **TASK-005**: Парсер Polymarket ✅\n6. **TASK-006**: Синхронизатор времени ✅\n7. **TASK-007**: Feature Engineering базовые ✅\n8. **TASK-008**: Feature Engineering расширенные ✅\n9. **TASK-009**: Детектор золотых прямоугольников ✅\n10. **TASK-010**: Автоматическая разметка ✅\n11. **TASK-011**: LSTM модель ✅\n12. **TASK-012**: XGBoost модель ✅\n13. **TASK-013**: Binance WebSocket ✅\n14. **TASK-014**: Локальный Vault ✅\n15. **TASK-015**: Polymarket EIP-712 Signing ✅\n16. **TASK-016**: Polymarket API Client ✅\n17. **TASK-017**: Inference Engine ✅\n18. **TASK-018**: Paper Trading Simulator ✅\n",
+  "saved_at": "2026-03-08T15:38:14.166871"
+}

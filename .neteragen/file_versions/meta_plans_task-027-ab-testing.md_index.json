@@ -1,0 +1,33 @@
+{
+  "file_name": "meta/plans/task-027-ab-testing.md",
+  "revisions": [
+    {
+      "revision_id": "75ab66c2-f3e2-402d-971e-9061560e1208",
+      "metadata": {
+        "timestamp": "2026-03-08T17:00:09.423014",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 1982,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Cody",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T17:00:09.437134"
+    },
+    {
+      "revision_id": "3771157b-5a2e-4840-83e8-342bf02b5baa",
+      "metadata": {
+        "timestamp": "2026-03-08T17:00:09.393149",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 0,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Cody",
+        "description": null
+      },
+      "saved_at": "2026-03-08T17:00:09.398782"
+    }
+  ]
+}

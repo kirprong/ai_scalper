@@ -1,0 +1,16 @@
+{
+  "file_name": "test_task_020.py",
+  "revision_id": "54916bf8-8d54-45a9-bacc-4f2a7394ad88",
+  "metadata": {
+    "timestamp": "2026-03-08T15:39:27.134439",
+    "type": "cache_version",
+    "source": "ToolTextFileEdit",
+    "size": 2719,
+    "is_reverted": false,
+    "git_branch_name": "main",
+    "agent_name": "Cody",
+    "description": ""
+  },
+  "content": "\"\"\"\nTest script for TASK-020 - Exit Strategy A\n\"\"\"\nimport sys\nsys.path.insert(0, '/root/project')\n\nfrom backend.execution.exit_strategy import (\n    ExitStrategyA,\n    ExitType,\n)\n\n\ndef test_exit_strategy():\n    \"\"\"Test exit strategy\"\"\"\n    print(\"=\" * 60)\n    print(\"Testing TASK-020 - Exit Strategy A\")\n    print(\"=\" * 60)\n    \n    # Create exit strategy\n    strategy = ExitStrategyA(price_offset=0.01)\n    \n    # Test 1: Calculate exit price\n    print(\"\\n[TEST 1] Calculate exit price\")\n    box_top = 0.65\n    exit_price = strategy.calculate_exit_price(box_top)\n    print(f\"  Box top: {box_top}\")\n    print(f\"  Exit price: {exit_price}\")\n    assert exit_price == 0.64, \"Exit price should be box_top - offset\"\n    print(\"  ✓ PASSED\")\n    \n    # Test 2: Create exit order\n    print(\"\\n[TEST 2] Create exit order\")\n    position = {\n        \"symbol\": \"BTC_TARGET\",\n        \"quantity\": 1000.0,\n        \"entry_price\": 0.55,\n        \"box_top\": 0.65,\n        \"box_bottom\": 0.55,\n        \"timestamp\": 1234567890.0,\n    }\n    \n    order = strategy.create_exit_order(position)\n    print(f\"  Order: {order.exit_type.value} {order.quantity} @ {order.price}\")\n    assert order.symbol == \"BTC_TARGET\"\n    assert order.quantity == 1000.0\n    assert order.price == 0.64\n    assert order.exit_type == ExitType.LIMIT_SELL\n    print(\"  ✓ PASSED\")\n    \n    # Test 3: Update exit order\n    print(\"\\n[TEST 3] Update exit order\")\n    new_box_top = 0.67\n    updated_order = strategy.update_exit_order(new_box_top)\n    print(f\"  New box top: {new_box_top}\")\n    print(f\"  Updated exit price: {updated_order.price}\")\n    assert updated_order.price == 0.66\n    print(\"  ✓ PASSED\")\n    \n    # Test 4: Stop loss not triggered\n    print(\"\\n[TEST 4] Stop loss not triggered\")\n    current_price = 0.55\n    should_trigger = strategy.should_trigger_stop_loss(current_price)\n    print(f\"  Current price: {current_price}\")\n    print(f\"  Should trigger: {should_trigger}\")\n    assert should_trigger is False\n    print(\"  ✓ PASSED\")\n    \n    # Test 5: Stop loss triggered\n    print(\"\\n[TEST 5] Stop loss triggered\")\n    current_price = 0.525  # 25% drop from box bottom\n    should_trigger = strategy.should_trigger_stop_loss(current_price)\n    print(f\"  Current price: {current_price}\")\n    print(f\"  Should trigger: {should_trigger}\")\n    assert should_trigger is True\n    print(\"  ✓ PASSED\")\n    \n    # Test 6: Clear strategy\n    print(\"\\n[TEST 6] Clear strategy\")\n    strategy.clear()\n    print(f\"  Has exit order: {strategy.has_exit_order()}\")\n    assert strategy.has_exit_order() is False\n    print(\"  ✓ PASSED\")\n    \n    print(\"\\n\" + \"=\" * 60)\n    print(\"All tests passed!\")\n    print(\"=\" * 60)\n\n\nif __name__ == \"__main__\":\n    test_exit_strategy()\n",
+  "saved_at": "2026-03-08T15:39:27.134439"
+}

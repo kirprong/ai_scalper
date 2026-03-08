@@ -304,7 +304,7 @@
         "TASK-012",
         "TASK-013"
       ],
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "TASK-018",
@@ -321,7 +321,7 @@
       "dependencies": [
         "TASK-016"
       ],
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "TASK-019",
@@ -339,7 +339,7 @@
         "TASK-017",
         "TASK-018"
       ],
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "TASK-020",
@@ -355,7 +355,7 @@
       "dependencies": [
         "TASK-019"
       ],
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "TASK-021",
@@ -371,7 +371,7 @@
       "dependencies": [
         "TASK-020"
       ],
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "TASK-022",
@@ -390,7 +390,7 @@
         "TASK-012",
         "TASK-018"
       ],
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "TASK-023",
@@ -406,7 +406,7 @@
       "dependencies": [
         "TASK-022"
       ],
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "TASK-024",
@@ -422,7 +422,7 @@
       "dependencies": [
         "TASK-019"
       ],
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "TASK-025",
@@ -439,7 +439,7 @@
         "TASK-024",
         "TASK-011"
       ],
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "TASK-026",
@@ -473,7 +473,7 @@
       "dependencies": [
         "TASK-017"
       ],
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "TASK-028",
@@ -490,7 +490,7 @@
       "dependencies": [
         "TASK-019"
       ],
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "TASK-029",
@@ -507,7 +507,7 @@
       "dependencies": [
         "TASK-016"
       ],
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "TASK-030",
@@ -686,7 +686,7 @@
         "TASK-034",
         "TASK-029"
       ],
-      "status": "pending"
+      "status": "done"
     }
   ]
 }

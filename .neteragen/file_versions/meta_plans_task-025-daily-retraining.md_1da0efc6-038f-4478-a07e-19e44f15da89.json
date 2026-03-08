@@ -1,0 +1,16 @@
+{
+  "file_name": "meta/plans/task-025-daily-retraining.md",
+  "revision_id": "1da0efc6-038f-4478-a07e-19e44f15da89",
+  "metadata": {
+    "timestamp": "2026-03-08T16:55:54.191020",
+    "type": "cache_version",
+    "source": "ToolTextFileEdit",
+    "size": 1928,
+    "is_reverted": false,
+    "git_branch_name": "main",
+    "agent_name": "Cody",
+    "description": ""
+  },
+  "content": "---\nSECTION_ID: plans.task-025-daily-retraining\nTYPE: plan\nSTATUS: completed\nPRIORITY: medium\n---\n\n# TASK-025: Evolution - Daily Re-training Pipeline\n\nGOAL: Автоматический пайплайн дообучения моделей при падении точности ниже 75%\nTIMELINE: 1 session\n\n## Task Checklist\n\n### Phase 1: Core Retraining Logic\n- [ ] Create `backend/evolution/__init__.py` - Module initialization\n- [ ] Create `backend/evolution/daily_retraining.py` - Main retraining pipeline\n- [ ] Implement accuracy check logic (check yesterday's predictions)\n- [ ] Implement fine-tuning trigger (< 75% accuracy)\n- [ ] Implement 48h data fetching for retraining\n\n### Phase 2: Model Versioning\n- [ ] Create `backend/evolution/model_versioning.py` - Model version management\n- [ ] Implement model backup before retraining\n- [ ] Implement model rollback on failure\n- [ ] Track model versions with metadata\n\n### Phase 3: Testing & Validation\n- [ ] Create `tests/test_daily_retraining.py` - Unit tests\n- [ ] Create `tests/test_model_versioning.py` - Unit tests\n- [ ] Test: accuracy < 75% triggers retraining\n- [ ] Test: model versioning works correctly\n- [ ] Update tasks.json status to done\n\n## Success Criteria\n- [ ] Accuracy check implemented\n- [ ] Fine-tuning triggered when accuracy < 75%\n- [ ] 48h data fetching working\n- [ ] Model versioning implemented\n- [ ] All tests pass\n\n## Technical Requirements\n\n### Accuracy Check:\n- Query yesterday's predictions from ClickHouse\n- Compare predicted vs actual outcomes\n- Calculate accuracy: correct_predictions / total_predictions\n\n### Fine-tuning Trigger:\n- If accuracy < 0.75 (75%):\n  - Fetch last 48 hours of labeled data\n  - Run fine-tuning on LSTM and XGBoost\n  - Save new model version\n\n### Model Versioning:\n- Backup current model before retraining\n- Version format: `model_timestamp_v{version}.pt`\n- Metadata: accuracy, training_date, data_range\n\n## Dependencies\n- TASK-024 ✅ (Telemetry)\n- TASK-011 ✅ (LSTM Model)\n",
+  "saved_at": "2026-03-08T16:55:54.192021"
+}

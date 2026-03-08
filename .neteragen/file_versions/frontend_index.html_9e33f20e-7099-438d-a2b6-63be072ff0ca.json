@@ -1,0 +1,16 @@
+{
+  "file_name": "frontend/index.html",
+  "revision_id": "9e33f20e-7099-438d-a2b6-63be072ff0ca",
+  "metadata": {
+    "timestamp": "2026-03-08T17:18:20.878916",
+    "type": "cache_version",
+    "source": "ToolTextFileEdit",
+    "size": 375,
+    "is_reverted": false,
+    "git_branch_name": "main",
+    "agent_name": "Many",
+    "description": ""
+  },
+  "content": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"/vite.svg\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>AI Lead Scalper - War Room</title>\n  </head>\n  <body>\n    <div id=\"root\"></div>\n    <script type=\"module\" src=\"/src/main.jsx\"></script>\n  </body>\n</html>\n",
+  "saved_at": "2026-03-08T17:18:20.883455"
+}

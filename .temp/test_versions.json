@@ -1,0 +1,33 @@
+{
+  "versions": {
+    "lstm": [
+      {
+        "version_id": "lstm-v1.0.0",
+        "model_type": "lstm",
+        "created_at": "2026-03-08T16:13:53.760531",
+        "metrics": {
+          "accuracy": 0.85,
+          "loss": 0.15
+        },
+        "file_path": "checkpoints/lstm_v1.pt",
+        "is_active": true
+      }
+    ],
+    "xgboost": [
+      {
+        "version_id": "xgboost-v1.0.0",
+        "model_type": "xgboost",
+        "created_at": "2026-03-08T16:13:53.762045",
+        "metrics": {
+          "accuracy": 0.9,
+          "loss": 0.1
+        },
+        "file_path": "checkpoints/xgb_v1.json",
+        "is_active": false
+      }
+    ]
+  },
+  "active_versions": {
+    "lstm": "lstm-v1.0.0"
+  }
+}

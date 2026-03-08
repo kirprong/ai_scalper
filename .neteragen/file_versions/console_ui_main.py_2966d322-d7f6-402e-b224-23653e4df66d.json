@@ -1,0 +1,16 @@
+{
+  "file_name": "console_ui/main.py",
+  "revision_id": "2966d322-d7f6-402e-b224-23653e4df66d",
+  "metadata": {
+    "timestamp": "2026-03-08T17:34:53.557301",
+    "type": "cache_version",
+    "source": "ToolTextFileEdit",
+    "size": 2341,
+    "is_reverted": false,
+    "git_branch_name": "main",
+    "agent_name": "Many",
+    "description": ""
+  },
+  "content": "\"\"\"\nConsole UI Entry Point - Rich Terminal Dashboard\n\nRun: python console_ui/main.py\n\"\"\"\n\nimport asyncio\nimport random\nfrom datetime import datetime\nfrom .dashboard import Dashboard\n\n\nasync def mock_data_generator():\n    \"\"\"\n    Mock data generator for testing the dashboard.\n    In production, this would fetch real data from the trading system.\n    \"\"\"\n    # Simulate changing values\n    return {\n        'pnl': {\n            'realized': random.uniform(-50, 150),\n            'unrealized': random.uniform(-20, 50),\n            'trades': random.randint(10, 50),\n            'win_rate': random.uniform(0.55, 0.75)\n        },\n        'ml': {\n            'lstm_status': random.choice(['ACTIVE', 'IDLE', 'TRAINING']),\n            'xgb_status': random.choice(['ACTIVE', 'IDLE']),\n            'lstm_conf': random.uniform(0.6, 0.95),\n            'xgb_conf': random.uniform(0.7, 0.98),\n            'accuracy': random.uniform(0.72, 0.88),\n            'last_pred': datetime.now()\n        },\n        'trading': {\n            'volume': random.uniform(5000, 25000),\n            'avg_size': random.uniform(50, 200),\n            'drawdown': random.uniform(0.01, 0.08),\n            'sharpe': random.uniform(0.8, 2.5),\n            'positions': random.randint(0, 3),\n            'orders': random.randint(0, 5)\n        },\n        'system': {\n            'status': 'RUNNING',\n            'uptime': random.randint(3600, 7200),\n            'cpu': random.uniform(15, 45),\n            'memory': random.uniform(30, 60),\n            'latency': random.uniform(5, 25),\n            'errors': random.randint(0, 2),\n            'last_error': None if random.random() > 0.3 else 'Connection timeout'\n        }\n    }\n\n\nasync def main():\n    \"\"\"Main entry point for console UI\"\"\"\n    dashboard = Dashboard()\n    \n    # Set up data callback\n    dashboard.set_update_callback(mock_data_generator)\n    \n    # Print welcome message\n    print(\"\\n\" + \"=\"*60)\n    print(\"  AI LEAD SCALPER - Terminal Dashboard v1.0\")\n    print(\"=\"*60)\n    print(\"\\n  Starting dashboard...\")\n    print(\"  Press Ctrl+C to exit\\n\")\n    \n    try:\n        # Run dashboard with 1 second refresh\n        await dashboard.run_async(refresh_rate=1.0)\n    except KeyboardInterrupt:\n        print(\"\\n\\n  Dashboard stopped by user.\")\n        dashboard.stop()\n\n\nif __name__ == \"__main__\":\n    asyncio.run(main())\n",
+  "saved_at": "2026-03-08T17:34:53.559303"
+}

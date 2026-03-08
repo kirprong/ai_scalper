@@ -1,0 +1,26 @@
+{
+    "chat_id": 4,
+    "topic": "New chat",
+    "focus_section_id": "r4.files",
+    "last_agent_name": "Many",
+    "last_modified_datetime": "2026-03-08T17:02:26.040218",
+    "messages": [
+        {
+            "name": "PO",
+            "message": "Проведи ревизию проекта, выясни, какие задачи выполнены, какие нет, все это отрази в файле прогресс и продолжай дальше.",
+            "message_raw": "Проведи ревизию проекта, выясни, какие задачи выполнены, какие нет, все это отрази в файле прогресс и продолжай дальше.",
+            "method": "USER",
+            "tasks": "",
+            "is_status_message": false,
+            "message_id": "e915b77a-b4ee-4f39-aecd-4c055a10d9d1",
+            "timestamp": "2026-03-08T17:02:25.814402",
+            "variation_index": 0,
+            "variations": [],
+            "images_data": {},
+            "documents_data": {},
+            "hidden_from_agent": false
+        }
+    ],
+    "mentioned_files": [],
+    "additional_context": ""
+}

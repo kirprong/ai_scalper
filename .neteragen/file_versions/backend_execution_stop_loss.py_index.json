@@ -1,0 +1,33 @@
+{
+  "file_name": "backend/execution/stop_loss.py",
+  "revisions": [
+    {
+      "revision_id": "6527675e-e09a-4a17-84eb-11335b367050",
+      "metadata": {
+        "timestamp": "2026-03-08T15:40:20.612282",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 5782,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Cody",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T15:40:20.614289"
+    },
+    {
+      "revision_id": "e355477b-367e-429a-9089-d07453199ce0",
+      "metadata": {
+        "timestamp": "2026-03-08T15:40:20.608227",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 0,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Cody",
+        "description": null
+      },
+      "saved_at": "2026-03-08T15:40:20.609738"
+    }
+  ]
+}

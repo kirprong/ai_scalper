@@ -1,0 +1,33 @@
+{
+  "file_name": "console_ui/dashboard.py",
+  "revisions": [
+    {
+      "revision_id": "5da3003e-7ac4-4f66-8a8c-f28bda21e24a",
+      "metadata": {
+        "timestamp": "2026-03-08T17:34:19.092872",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 5755,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T17:34:19.104963"
+    },
+    {
+      "revision_id": "db8711a9-b2c8-456d-b9f2-f6d7c2746e7f",
+      "metadata": {
+        "timestamp": "2026-03-08T17:34:19.077165",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 0,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": null
+      },
+      "saved_at": "2026-03-08T17:34:19.082751"
+    }
+  ]
+}

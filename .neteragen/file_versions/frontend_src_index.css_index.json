@@ -1,0 +1,33 @@
+{
+  "file_name": "frontend/src/index.css",
+  "revisions": [
+    {
+      "revision_id": "0b9f99c5-fc1c-4ed4-b0ca-c80e27f09284",
+      "metadata": {
+        "timestamp": "2026-03-08T17:18:20.879929",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 824,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": ""
+      },
+      "saved_at": "2026-03-08T17:18:20.906197"
+    },
+    {
+      "revision_id": "b9e5b4c3-9cd2-453d-b022-7c5e6c2b5ec5",
+      "metadata": {
+        "timestamp": "2026-03-08T17:18:20.863722",
+        "type": "cache_version",
+        "source": "ToolTextFileEdit",
+        "size": 0,
+        "is_reverted": false,
+        "git_branch_name": "main",
+        "agent_name": "Many",
+        "description": null
+      },
+      "saved_at": "2026-03-08T17:18:20.868251"
+    }
+  ]
+}
