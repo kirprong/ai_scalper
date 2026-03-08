@@ -211,3 +211,102 @@ python -m backend.parsers.binance_historical --symbol ETHUSDT --start-date 2026-
 Docker Desktop must be running for full integration testing. The parser code is complete and syntax-verified.
 
 ---
+
+## 2026-03-08 - TASK-005 ✅ COMPLETED
+
+### Task: Парсер Polymarket Historical Data -> БД
+**Category:** integration
+**Priority:** critical
+
+### Completed Work:
+- Polymarket historical data parser implemented
+- Fetches trades from Polymarket CLOB and Gamma APIs
+- Transforms data to market_data schema
+- Inserts into ClickHouse with batch processing
+
+---
+
+## 2026-03-08 - TASK-006 ✅ COMPLETED
+
+### Task: Синхронизатор времени (ASOF JOIN Time Aligner)
+**Category:** functional
+**Priority:** critical
+
+### Completed Work:
+1. Created `backend/sync/__init__.py` - Sync module initialization
+2. Created `backend/sync/time_aligner.py` - Main time aligner module with:
+   - `TimeAligner` async class for ASOF JOIN time alignment
+   - `TimeDeltaStats` model for statistics (mean, median, std_dev, percentiles)
+   - `MatchedPair` model for individual matched trade pairs
+   - `AlignmentResult` model for alignment operation results
+   - ASOF JOIN query builder for millisecond-precision matching
+   - Statistics calculation functions
+   - CLI entry point with argparse
+
+3. Created `tests/test_time_aligner.py` - Unit tests with 14 test cases:
+   - Test models (TimeDeltaStats, MatchedPair, AlignmentResult)
+   - Test ASOF JOIN query building
+   - Test query result parsing
+   - Test statistics calculation
+   - Test context manager
+
+4. Created `scripts/test_time_aligner.py` - Integration test script:
+   - Inserts sample market data for testing
+   - Runs time aligner on 1 hour of data
+   - Outputs average time delta statistics
+
+### Key Features:
+- **ASOF JOIN Query**: Finds closest Binance trade for each Polymarket trade
+- **Delta Calculation**: `Delta_T = Poly_TS - Binance_TS` in milliseconds
+- **Statistics**: Mean, median, std_dev, min, max, P25, P75, P95
+- **Configurable Time Window**: Maximum time difference for matching
+- **Result Storage**: Option to store alignment results in ClickHouse
+
+### ASOF JOIN Query Structure:
+```sql
+SELECT
+    poly.ts AS poly_ts,
+    binance.ts AS binance_ts,
+    toFloat64(poly.ts - binance.ts) * 1000 AS delta_ms,
+    ...
+FROM (SELECT ... WHERE source = 'polymarket') AS poly
+ASOF LEFT JOIN (SELECT ... WHERE source = 'binance') AS binance
+ON poly.ts >= binance.ts
+WHERE binance.ts IS NOT NULL
+    AND delta_ms <= {time_window_ms}
+```
+
+### CLI Usage:
+```bash
+# Run alignment on 1 hour of data
+python -m backend.sync.time_aligner --hours 1
+
+# Specify time range
+python -m backend.sync.time_aligner --start-time "2026-03-08 10:00:00" --end-time "2026-03-08 11:00:00"
+
+# Configure time window
+python -m backend.sync.time_aligner --time-window-ms 500
+
+# Store results in ClickHouse
+python -m backend.sync.time_aligner --store-results
+```
+
+### Files Created:
+- `backend/sync/__init__.py`
+- `backend/sync/time_aligner.py`
+- `tests/test_time_aligner.py`
+- `scripts/test_time_aligner.py`
+
+### Files Modified:
+- `tasks.json`
+
+### Test Results:
+- ✅ 14 unit tests pass
+- ✅ ASOF JOIN query building verified
+- ✅ Statistics calculation verified
+- ✅ Query result parsing verified
+
+### Note:
+Full integration testing requires Docker Desktop running with ClickHouse. Unit tests verify module logic without database connection.
+
+---
