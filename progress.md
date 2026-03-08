@@ -80,3 +80,67 @@
 Docker Desktop must be running to test the container. Run `docker-compose up -d` to start ClickHouse.
 
 ---
+
+## 2026-03-08 - TASK-003 ✅ COMPLETED
+
+### Task: Миграции БД: market_data столбцовое хранение и OHLC View
+**Category:** infrastructure
+**Priority:** critical
+
+### Completed Work:
+1. Created migration script `db/migrations/001_create_market_data_table.sql`:
+   - `market_data` table with proper schema:
+     - `symbol` (String) - trading pair identifier
+     - `ts` (DateTime64(3)) - millisecond precision timestamp
+     - `price` (Float64) - with ZSTD(1) compression
+     - `volume` (Float64) - with ZSTD(1) compression
+     - `side` (Enum8) - buy/sell indicator
+     - `source` (String) - data source (binance/polymarket)
+   - Indexes on (symbol, ts) for fast queries
+   - MergeTree engine with monthly partitioning
+
+2. Created OHLC aggregation views:
+   - `ohlc_1s` - 1-second OHLC aggregation
+   - `ohlc_5s` - 5-second OHLC aggregation
+   - `ohlc_10s` - 10-second OHLC aggregation
+   - Each view includes: open, high, low, close, volume, trade_count
+
+3. Created Python migration runner `scripts/run_migrations.py`:
+   - Connects to ClickHouse via HTTP interface
+   - Executes migrations in order by filename
+   - Supports dry-run mode
+   - Proper error handling and logging
+
+4. Updated `db/init/01_init.sql`:
+   - Removed sample table (now handled by migrations)
+   - Added reference to migration script
+
+### Table Schema:
+```sql
+CREATE TABLE market_data.market_data (
+    symbol String,
+    ts DateTime64(3),
+    price Float64 CODEC(ZSTD(1)),
+    volume Float64 CODEC(ZSTD(1)),
+    side Enum8('buy' = 1, 'sell' = 2),
+    source String
+)
+ENGINE = MergeTree()
+PARTITION BY toYYYYMM(ts)
+ORDER BY (symbol, ts)
+```
+
+### Files Created:
+- `db/migrations/001_create_market_data_table.sql`
+- `scripts/run_migrations.py`
+
+### Files Modified:
+- `db/init/01_init.sql`
+- `tasks.json`
+
+### Test Instructions:
+1. Start ClickHouse: `docker-compose up -d`
+2. Run migrations: `python scripts/run_migrations.py`
+3. Verify table creation: `clickhouse-client --query "SHOW TABLES FROM market_data"`
+
+---
