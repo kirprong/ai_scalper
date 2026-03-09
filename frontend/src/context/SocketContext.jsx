@@ -9,7 +9,9 @@ export function SocketProvider({ children }) {
   const [systemStatus, setSystemStatus] = useState('ACTIVE')
 
   useEffect(() => {
-    const socketInstance = io('http://localhost:8000', {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000'
+
+    const socketInstance = io(backendUrl, {
       transports: ['websocket', 'polling']
     })
 
@@ -58,9 +60,9 @@ export function SocketProvider({ children }) {
   }
 
   return (
-    <SocketContext.Provider value={{ 
-      socket, 
-      connected, 
+    <SocketContext.Provider value={{
+      socket,
+      connected,
       systemStatus,
       emitPanic,
       emitReset

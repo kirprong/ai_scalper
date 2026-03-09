@@ -18,6 +18,7 @@ from pathlib import Path
 from datetime import datetime
 from unittest.mock import Mock, AsyncMock, MagicMock
 import numpy as np
+import pytest
 
 # Import components
 from backend.evolution.model_validation import (
@@ -156,6 +157,7 @@ def test_model_versioning():
         shutil.rmtree(temp_dir)
 
 
+@pytest.mark.asyncio
 async def test_hot_reload_manager():
     """Test 3: Hot Reload Manager"""
     print("\n" + "=" * 60)
@@ -224,6 +226,7 @@ async def test_hot_reload_manager():
         shutil.rmtree(temp_dir)
 
 
+@pytest.mark.asyncio
 async def test_hot_reload_workflow():
     """Test 4: Complete Hot Reload Workflow"""
     print("\n" + "=" * 60)
