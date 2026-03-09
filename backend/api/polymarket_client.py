@@ -3,6 +3,13 @@ Polymarket CLOB API Client
 
 Async HTTP client for Polymarket CLOB API with Keep-Alive connections,
 rate limiting, and secure order signing.
+
+Features:
+- Multi-account support with account_id tracking
+- Keep-Alive connections for low latency
+- Rate limiting and retry logic
+- Secure order signing with EIP-712
+- Integration with Vault for key management
 """
 
 import asyncio
@@ -51,6 +58,7 @@ class PolymarketClient:
     Async HTTP client for Polymarket CLOB API
     
     Features:
+    - Multi-account support with account_id tracking
     - Keep-Alive connections for low latency
     - Rate limiting and retry logic
     - Secure order signing with EIP-712
@@ -68,7 +76,8 @@ class PolymarketClient:
         chain_id: int = 137,
         timeout: float = 30.0,
         max_retries: int = 3,
-        rate_limit_delay: float = 0.1
+        rate_limit_delay: float = 0.1,
+        account_id: Optional[str] = None
     ):
         """
         Initialize Polymarket client
@@ -79,12 +88,14 @@ class PolymarketClient:
             timeout: Request timeout in seconds
             max_retries: Maximum retry attempts
             rate_limit_delay: Delay between requests for rate limiting
+            account_id: Optional account identifier for multi-account support
         """
         self.signer = signer
         self.chain_id = chain_id
         self.timeout = timeout
         self.max_retries = max_retries
         self.rate_limit_delay = rate_limit_delay
+        self.account_id = account_id or signer.address
         
         # Get API URL
         self.base_url = CLOB_API_URLS.get(chain_id, CLOB_API_URLS[137])
@@ -92,6 +103,15 @@ class PolymarketClient:
         # Session will be created on first use
         self._session: Optional[ClientSession] = None
         self._last_request_time = 0.0
+    
+    @property
+    def address(self) -> str:
+        """Get the wallet address for this client."""
+        return self.signer.address
+    
+    def get_account_id(self) -> str:
+        """Get the account ID for this client."""
+        return self.account_id
     
     async def _get_session(self) -> ClientSession:
         """Get or create HTTP session with Keep-Alive"""

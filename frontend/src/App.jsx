@@ -1,25 +1,52 @@
-import React from 'react'
-import PanicButton from './components/PanicButton'
-import { SocketProvider } from './context/SocketContext'
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+// Layout
+import Layout from './components/Layout';
+
+// Pages
+import Dashboard from './pages/Dashboard';
+import Trading from './pages/Trading';
+import Settings from './pages/Settings';
+
+// Create a client for React Query
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5000, // Data is fresh for 5 seconds
+      retry: 2, // Retry failed requests twice
+      refetchOnWindowFocus: false, // Don't refetch on window focus
+    },
+  },
+});
+
+/**
+ * Main App component with routing and providers
+ */
 function App() {
   return (
-    <SocketProvider>
-      <div className="min-h-screen bg-slate-900 text-white">
-        <header className="bg-slate-800 border-b border-slate-700 px-6 py-4">
-          <h1 className="text-2xl font-bold text-slate-100">
-            AI Lead Scalper - War Room
-          </h1>
-        </header>
-        
-        <main className="p-6">
-          <div className="flex justify-center items-start">
-            <PanicButton />
-          </div>
-        </main>
-      </div>
-    </SocketProvider>
-  )
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          {/* Main layout with nested routes */}
+          <Route path="/" element={<Layout />}>
+            {/* Dashboard - default route */}
+            <Route index element={<Dashboard />} />
+
+            {/* Trading page */}
+            <Route path="trading" element={<Trading />} />
+
+            {/* Settings page */}
+            <Route path="settings" element={<Settings />} />
+
+            {/* Catch-all redirect to dashboard */}
+            <Route path="*" element={<Dashboard />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
+  );
 }
 
-export default App
+export default App;
