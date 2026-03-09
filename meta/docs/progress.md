@@ -363,3 +363,31 @@ TYPE: note
 
 **Last Updated:** 2026-03-08 19:52
 **Next Review:** After TASK-028 or TASK-030 completion
+
+---
+
+## TASK-030: Full Dockerization & Orchestration - COMPLETED
+
+**Date:** 2026-03-09
+
+### Summary
+Docker orchestration configuration is complete and validated. All three services (bot_backend, frontend, clickhouse_db) are properly configured in docker-compose.yml with:
+
+- **ClickHouse**: 8GB RAM limit, ZSTD compression, health checks, persistent volumes
+- **Backend**: Python 3.11-slim, uvicorn server, health endpoint at /health
+- **Frontend**: Node 20-alpine, Vite dev server, health checks
+
+### Acceptance Criteria Met
+- ✅ Common docker-compose.yml for bot_backend, frontend, clickhouse_db
+- ✅ 8GB RAM allocation tuning for ClickHouse database
+
+### Files
+- `docker-compose.yml` - Main orchestration file
+- `Dockerfile` - Backend container definition
+- `frontend/Dockerfile` - Frontend container definition
+
+### Test Status
+Configuration validated syntactically. Live test requires Docker Desktop to be running.
+
+### Note
+Extended plan items (Kubernetes manifests, CI/CD workflows) remain as future enhancements but are not required for the core acceptance criteria.
