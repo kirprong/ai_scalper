@@ -6,6 +6,7 @@ This module provides automatic model retraining capabilities:
 - Automatic fine-tuning when accuracy drops below threshold
 - Model validation and hot reload
 - Model versioning and rollback
+- A/B testing framework
 """
 
 from backend.evolution.daily_retraining import (
@@ -20,6 +21,18 @@ from backend.evolution.model_versioning import (
     VersionComparison,
 )
 
+from backend.evolution.ab_testing import (
+    ABTestingFramework,
+    Experiment,
+    Variant,
+    StatisticalResult,
+)
+
+from backend.evolution.experiment_manager import (
+    ExperimentManager,
+    EarlyStoppingConfig,
+)
+
 __all__ = [
     "DailyRetrainingConfig",
     "DailyRetrainingPipeline",
@@ -27,4 +40,10 @@ __all__ = [
     "ModelVersion",
     "ModelVersioningSystem",
     "VersionComparison",
+    "ABTestingFramework",
+    "Experiment",
+    "Variant",
+    "StatisticalResult",
+    "ExperimentManager",
+    "EarlyStoppingConfig",
 ]

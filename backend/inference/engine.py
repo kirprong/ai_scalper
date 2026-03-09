@@ -307,6 +307,71 @@ class InferenceEngine:
         """Set callback for prediction results."""
         self._on_prediction = callback
     
+    async def reload_models(
+        self,
+        lstm_model_path: Optional[str] = None,
+        xgb_model_path: str = None,
+        lstm_version: Optional[str] = None,
+        xgb_version: Optional[str] = None,
+    ) -> bool:
+        """
+        Hot reload models in the inference worker.
+        
+        This method sends a reload command to the worker process, which will
+        atomically swap the models in RAM without interrupting predictions.
+        
+        Args:
+            lstm_model_path: Path to new LSTM model
+            xgb_model_path: Path to new XGBoost model
+            lstm_version: Version identifier for LSTM model
+            xgb_version: Version identifier for XGBoost model
+        
+        Returns:
+            True if reload successful
+        """
+        if not self._running:
+            raise RuntimeError("Inference engine not running")
+        
+        logger.info("Sending reload command to inference worker...")
+        
+        # Create reload command
+        reload_command = {
+            "command": "RELOAD",
+            "lstm_model_path": lstm_model_path,
+            "xgb_model_path": xgb_model_path,
+            "lstm_version": lstm_version,
+            "xgb_version": xgb_version,
+        }
+        
+        # Send reload command
+        self.request_queue.put(reload_command)
+        
+        # Wait for response
+        timeout = 10.0  # 10 seconds for reload
+        try:
+            loop = asyncio.get_event_loop()
+            response = await loop.run_in_executor(
+                None,
+                lambda: self.response_queue.get(timeout=timeout),
+            )
+            
+            if response.get("command") == "RELOAD_RESPONSE":
+                success = response.get("success", False)
+                
+                if success:
+                    logger.info(f"Models reloaded successfully in {response.get('reload_time_ms', 0):.2f}ms")
+                else:
+                    logger.error(f"Model reload failed: {response.get('error_message')}")
+                
+                return success
+            else:
+                logger.error(f"Unexpected response: {response}")
+                return False
+                
+        except Exception as e:
+            logger.error(f"Reload command failed: {e}")
+            return False
+    
     @property
     def is_running(self) -> bool:
         """Check if engine is running."""
